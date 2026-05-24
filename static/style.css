@@ -86,15 +86,16 @@ input {
     padding: 0.5rem;
 }
 
-button {
+button, .button {
     padding: 0.7rem;
     background: #333;
     color: white;
     border: none;
     cursor: pointer;
+    display: inline-block;
 }
 
-button:hover {
+button:hover, .button:hover {
     background: #555;
 }
 

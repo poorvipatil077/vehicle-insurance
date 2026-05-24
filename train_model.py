@@ -1,32 +1,32 @@
 import pandas as pd
-import pickle
+import joblib
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
 import os
 
 # Create a sample dataset if not exists
-DATASET_PATH = 'dataset/insurance.csv'
+DATASET_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dataset', 'insurance.csv')
+if not os.path.exists(os.path.dirname(DATASET_PATH)):
+    os.makedirs(os.path.dirname(DATASET_PATH))
+
 if not os.path.exists(DATASET_PATH):
     data = {
-        'age': [25, 45, 35, 50, 23],
-        'policy_state': [1, 2, 1, 3, 2],
-        'policy_deductable': [500, 1000, 500, 2000, 500],
-        'incident_type': [1, 2, 1, 1, 2],
-        'fraud_reported': [0, 1, 0, 1, 0]
+        'age': [25, 45, 35, 50, 23, 30, 40, 55, 20, 48],
+        'accidents': [0, 1, 0, 2, 0, 1, 0, 3, 0, 1],
+        'vehicle_age': [2, 10, 5, 12, 1, 6, 8, 15, 1, 11],
+        'fraud_reported': [0, 1, 0, 1, 0, 0, 0, 1, 0, 1]
     }
     df = pd.DataFrame(data)
     df.to_csv(DATASET_PATH, index=False)
 else:
     df = pd.read_csv(DATASET_PATH)
 
-# Train a simple model with more features or data
+# Train a robust model
 X = df.drop('fraud_reported', axis=1)
 y = df['fraud_reported']
 
 print(f"Dataset shape: {df.shape}")
 print("Training model...")
 
-# Ensure the model is robust
 model = RandomForestClassifier(n_estimators=100, random_state=42)
 model.fit(X, y)
 
@@ -36,9 +36,6 @@ if not os.path.exists(MODEL_DIR):
     os.makedirs(MODEL_DIR)
 
 model_file = os.path.join(MODEL_DIR, 'fraud_model.pkl')
-with open(model_file, 'wb') as f:
-    pickle.dump(model, f)
+joblib.dump(model, model_file)
 
 print(f"Model trained successfully and saved to: {model_file}")
-
-print("Model trained and saved successfully.")

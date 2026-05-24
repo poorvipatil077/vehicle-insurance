@@ -12,13 +12,16 @@
         <button id="theme-toggle">🌙 Dark</button>
     </header>
     <nav>
-        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('home') }}">Home</a>
         <a href="{{ url_for('login') }}">Login</a>
         <a href="{{ url_for('register') }}">Register</a>
     </nav>
     <div class="container">
         <h2>Welcome to the Vehicle Insurance Fraud Detection System</h2>
         <p>Our system helps in detecting fraudulent insurance claims using machine learning.</p>
+        <div style="margin-top: 2rem; text-align: center;">
+            <a href="{{ url_for('login') }}" class="button" style="text-decoration: none; padding: 10px 20px; background: #333; color: white; border-radius: 5px;">Get Started</a>
+        </div>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>

@@ -13,57 +13,49 @@
         <button id="theme-toggle">🌙 Dark</button>
     </header>
     <nav>
-        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('home') }}">Home</a>
         <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
     </nav>
     <div class="container">
         <h2>Insurance Trends</h2>
-        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-            <div style="flex: 1; min-width: 300px;">
-                <h3>Fraud vs Legit Claims</h3>
-                <canvas id="fraudChart"></canvas>
-            </div>
-            <div style="flex: 1; min-width: 300px;">
-                <h3>Claims by Policy State</h3>
-                <canvas id="stateChart"></canvas>
-            </div>
+        <div style="width: 80%; margin: auto;">
+            <canvas id="fraudChart"></canvas>
         </div>
     </div>
     <script>
-        // Fraud Chart
-        const ctx1 = document.getElementById('fraudChart').getContext('2d');
-        new Chart(ctx1, {
+        const ctx = document.getElementById('fraudChart').getContext('2d');
+        new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ['Fraud', 'Legit'],
+                labels: {{ labels | tojson }},
                 datasets: [{
-                    data: [{{ fraud_count }}, {{ legit_count }}],
-                    backgroundColor: ['#ff6384', '#36a2eb']
-                }]
-            }
-        });
-
-        // State Chart
-        const stateLabels = [{% for s in states.keys() %}'State {{ s }}',{% endfor %}];
-        const stateData = [{% for v in states.values() %}{{ v }},{% endfor %}];
-        
-        const ctx2 = document.getElementById('stateChart').getContext('2d');
-        new Chart(ctx2, {
-            type: 'bar',
-            data: {
-                labels: stateLabels,
-                datasets: [{
-                    label: 'Claims Count',
-                    data: stateData,
-                    backgroundColor: '#4bc0c0'
+                    label: 'Claims Distribution',
+                    data: {{ values | tojson }},
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)'
+                    ],
+                    borderWidth: 1
                 }]
             },
             options: {
-                scales: {
-                    y: { beginAtZero: true }
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'Fraud vs Genuine Claims' }
                 }
             }
         });
     </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

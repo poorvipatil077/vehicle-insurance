@@ -8,6 +8,13 @@ matplotlib
 seaborn
 numpy
 gunicorn
+joblib
+reportlab
 fpdf2
+flask-sqlalchemy
+flask-login
 flask-mail
 python-dotenv
+pandas
+scikit-learn
+gunicorn

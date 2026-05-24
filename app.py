@@ -275,5 +275,7 @@ def analytics():
 # =========================
 
 if __name__ == '__main__':
+    # Use environment port for Render, default to 10000 locally
     port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    # Disable reloader to prevent "Internal Server Error" issues in some sandbox environments
+    app.run(host="0.0.0.0", port=port, debug=True, use_reloader=False)

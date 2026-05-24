@@ -23,6 +23,9 @@ else:
 X = df.drop('fraud_reported', axis=1)
 y = df['fraud_reported']
 
+print(f"Dataset shape: {df.shape}")
+print("Training model...")
+
 # Ensure the model is robust
 model = RandomForestClassifier(n_estimators=100, random_state=42)
 model.fit(X, y)
@@ -32,7 +35,10 @@ MODEL_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'model')
 if not os.path.exists(MODEL_DIR):
     os.makedirs(MODEL_DIR)
 
-with open(os.path.join(MODEL_DIR, 'fraud_model.pkl'), 'wb') as f:
+model_file = os.path.join(MODEL_DIR, 'fraud_model.pkl')
+with open(model_file, 'wb') as f:
     pickle.dump(model, f)
+
+print(f"Model trained successfully and saved to: {model_file}")
 
 print("Model trained and saved successfully.")

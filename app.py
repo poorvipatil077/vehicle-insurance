@@ -80,7 +80,8 @@ with app.app_context():
         db.session.commit()
 
 # Load the model
-MODEL_PATH = 'model/fraud_model.pkl'
+basedir = os.path.abspath(os.path.dirname(__file__))
+MODEL_PATH = os.path.join(basedir, 'model', 'fraud_model.pkl')
 if os.path.exists(MODEL_PATH):
     with open(MODEL_PATH, 'rb') as f:
         model = pickle.load(f)

@@ -39,7 +39,8 @@
         {% if prediction %}
         <div class="container" style="margin-top: 2rem; border: 2px solid var(--border-color); text-align: center;">
             <h3>Prediction Result:</h3>
-            <h2 style="color: {% if 'Fraud' in prediction %}var(--danger-color){% else %}var(--success-color){% endif %};">
+            {% set result_color = 'var(--danger-color)' if 'Fraud' in prediction else 'var(--success-color)' %}
+            <h2 style="color: {{ result_color }};">
                 {{ prediction }}
             </h2>
         </div>

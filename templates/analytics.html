@@ -26,13 +26,16 @@
     </div>
     <script>
         const ctx = document.getElementById('fraudChart').getContext('2d');
+        const chartLabels = {{ labels | tojson | safe }};
+        const chartValues = {{ values | tojson | safe }};
+        
         new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: {{ labels | tojson }},
+                labels: chartLabels,
                 datasets: [{
                     label: 'Claims Distribution',
-                    data: {{ values | tojson }},
+                    data: chartValues,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.5)',
                         'rgba(54, 162, 235, 0.5)',

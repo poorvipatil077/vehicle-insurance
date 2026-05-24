@@ -48,7 +48,8 @@
                     <td>{{ claim[2] }}</td>
                     <td>{{ claim[3] }}</td>
                     <td>{{ claim[4] }}</td>
-                    <td style="color: {% if 'Fraud' in claim[5] %}var(--danger-color){% else %}var(--success-color){% endif %}; font-weight: bold;">
+                    {% set status_color = 'var(--danger-color)' if 'Fraud' in claim[5] else 'var(--success-color)' %}
+                    <td style="color: {{ status_color }}; font-weight: bold;">
                         {{ claim[5] }}
                     </td>
                     <td>{{ claim[6] }}</td>

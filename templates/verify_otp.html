@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Verify Email</h1>
+        <button id="theme-toggle">🌙 Dark</button>
+    </header>
+    <nav>
+        <a href="{{ url_for('index') }}">Home</a>
+    </nav>
+    <div class="container">
+        <p>An OTP has been sent to your email. Please enter it below to complete registration.</p>
+        <form action="{{ url_for('verify_otp') }}" method="POST">
+            <label for="otp">Enter OTP:</label>
+            <input type="text" id="otp" name="otp" required>
+            <button type="submit">Verify & Register</button>
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

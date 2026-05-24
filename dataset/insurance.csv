@@ -1,0 +1,6 @@
+age,policy_state,policy_deductable,incident_type,fraud_reported
+25,1,500,1,0
+45,2,1000,2,1
+35,1,500,1,0
+50,3,2000,1,1
+23,2,500,2,0

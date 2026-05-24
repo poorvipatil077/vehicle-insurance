@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Admin Panel</h1>
+        <button id="theme-toggle">🌙 Dark</button>
+    </header>
+    <nav>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('analytics') }}">Analytics</a>
+    </nav>
+    <div class="container">
+        <h2>Manage Claims</h2>
+        <table border="1" style="width: 100%; text-align: left; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Age</th>
+                    <th>Policy State</th>
+                    <th>Deductable</th>
+                    <th>Incident</th>
+                    <th>Prediction</th>
+                    <th>Timestamp</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for claim in claims %}
+                <tr>
+                    <td>{{ claim.owner.username }}</td>
+                    <td>{{ claim.age }}</td>
+                    <td>{{ claim.policy_state }}</td>
+                    <td>{{ claim.policy_deductable }}</td>
+                    <td>{{ claim.incident_type }}</td>
+                    <td>{{ claim.prediction }}</td>
+                    <td>{{ claim.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    <td><a href="{{ url_for('generate_report', claim_id=claim.id) }}">PDF</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

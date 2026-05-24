@@ -1,0 +1,13 @@
+flask
+flask-sqlalchemy
+flask-login
+pandas
+scikit-learn
+pickle-mixin
+matplotlib
+seaborn
+numpy
+gunicorn
+fpdf2
+flask-mail
+python-dotenv

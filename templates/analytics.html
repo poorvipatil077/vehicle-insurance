@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Data Analytics</h1>
+        <button id="theme-toggle">🌙 Dark</button>
+    </header>
+    <nav>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+    </nav>
+    <div class="container">
+        <h2>Insurance Trends</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+            <div style="flex: 1; min-width: 300px;">
+                <h3>Fraud vs Legit Claims</h3>
+                <canvas id="fraudChart"></canvas>
+            </div>
+            <div style="flex: 1; min-width: 300px;">
+                <h3>Claims by Policy State</h3>
+                <canvas id="stateChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Fraud Chart
+        const ctx1 = document.getElementById('fraudChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'pie',
+            data: {
+                labels: ['Fraud', 'Legit'],
+                datasets: [{
+                    data: [{{ fraud_count }}, {{ legit_count }}],
+                    backgroundColor: ['#ff6384', '#36a2eb']
+                }]
+            }
+        });
+
+        // State Chart
+        const stateLabels = [{% for s in states.keys() %}'State {{ s }}',{% endfor %}];
+        const stateData = [{% for v in states.values() %}{{ v }},{% endfor %}];
+        
+        const ctx2 = document.getElementById('stateChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: stateLabels,
+                datasets: [{
+                    label: 'Claims Count',
+                    data: stateData,
+                    backgroundColor: '#4bc0c0'
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -48,11 +48,11 @@
                     <td>{{ claim[2] }}</td>
                     <td>{{ claim[3] }}</td>
                     <td>{{ claim[4] }}</td>
-                    <td style="color: {% if 'Fraud' in claim[5] %}red{% else %}green{% endif %}; font-weight: bold;">
+                    <td style="color: {% if 'Fraud' in claim[5] %}var(--danger-color){% else %}var(--success-color){% endif %}; font-weight: bold;">
                         {{ claim[5] }}
                     </td>
                     <td>{{ claim[6] }}</td>
-                    <td><a href="{{ url_for('download_report', claim_id=claim[0]) }}">PDF</a></td>
+                    <td><a href="{{ url_for('download_report', claim_id=claim[0]) }}" class="button" style="padding: 5px 10px; font-size: 0.8rem;">PDF</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

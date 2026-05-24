@@ -36,9 +36,9 @@
         </form>
 
         {% if prediction %}
-        <div class="container" style="margin-top: 2rem; border: 2px solid #333;">
+        <div class="container" style="margin-top: 2rem; border: 2px solid var(--border-color); text-align: center;">
             <h3>Prediction Result:</h3>
-            <h2 style="color: {% if 'Fraud' in prediction %}red{% else %}green{% endif %};">
+            <h2 style="color: {% if 'Fraud' in prediction %}var(--danger-color){% else %}var(--success-color){% endif %};">
                 {{ prediction }}
             </h2>
         </div>
